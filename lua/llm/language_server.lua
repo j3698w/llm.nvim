@@ -146,8 +146,9 @@ function M.get_completions(callback)
   vim.notify("get client", vim.log.levels.WARN)
   local client = lsp.get_client_by_id(M.client_id)
   if client ~= nil then
+    vim.notify("doing request", vim.log.levels.WARN)
     local status, request_id = client.request("llm-ls/getCompletions", params, callback, 0)
-    vim.notify(status .. " status", vim.log.levels.WARN)
+    vim.notify("did request", vim.log.levels.WARN)
 
     if not status then
       vim.notify("[LLM] request 'llm-ls/getCompletions' failed", vim.log.levels.WARN)
