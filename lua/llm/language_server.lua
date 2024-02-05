@@ -108,6 +108,7 @@ function M.extract_generation(response)
 end
 
 function M.get_completions(callback)
+  vim.notify("Getting completion", vim.log.levels.WARN)
   if M.client_id == nil then
     return
   end
