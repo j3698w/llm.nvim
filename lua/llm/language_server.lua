@@ -12,6 +12,7 @@ local M = {
 }
 
 local function build_binary_name()
+  vim.notify("building binary name", vim.log.levels.WARN)
   local os_uname = loop.os_uname()
   local arch = os_uname.machine
   local os = os_uname.sysname
@@ -52,6 +53,7 @@ local function build_binary_name()
 end
 
 local function build_url(bin_name)
+  vim.notify("building url", vim.log.levels.WARN)
   return "https://github.com/huggingface/llm-ls/releases/download/"
     .. config.get().lsp.version
     .. "/"
@@ -60,6 +62,7 @@ local function build_url(bin_name)
 end
 
 local function download_and_unzip(url, path)
+  vim.notify("downloading and unzipping", vim.log.levels.WARN)
   local download_command = "curl -L -o " .. path .. ".gz " .. url
   local unzip_command = "gunzip -c " .. path .. ".gz > " .. path
   local chmod_command = "chmod +x " .. path
@@ -75,6 +78,7 @@ local function download_and_unzip(url, path)
 end
 
 local function download_llm_ls()
+  vim.notify("downloading llm ls", vim.log.levels.WARN)
   local bin_path = config.get().lsp.bin_path
   if bin_path ~= nil and fn.filereadable(bin_path) == 1 then
     return bin_path
@@ -96,10 +100,12 @@ local function download_llm_ls()
 end
 
 function M.cancel_request(request_id)
+  vim.notify("canceling request", vim.log.levels.WARN)
   lsp.get_client_by_id(M.client_id).cancel_request(request_id)
 end
 
 function M.extract_generation(response)
+  vim.notify("extracting generation", vim.log.levels.WARN)
   if #response == 0 then
     return ""
   end
@@ -162,6 +168,7 @@ function M.get_completions(callback)
 end
 
 function M.accept_completion(completion_result)
+  vim.notify("accepting completion", vim.log.levels.WARN)
   local params = {}
   params.request_id = completion_result.request_id
   params.accepted_completion = 0
@@ -178,6 +185,7 @@ function M.accept_completion(completion_result)
 end
 
 function M.reject_completion(completion_result)
+  vim.notify("rejecting completion", vim.log.levels.WARN)
   local params = {}
   params.request_id = completion_result.request_id
   params.shown_completions = { 0 }
