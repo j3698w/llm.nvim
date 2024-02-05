@@ -63,8 +63,8 @@ end
 
 local function download_and_unzip(url, path)
   vim.notify("downloading and unzipping", vim.log.levels.WARN)
-  vim.notify(path, vim.log.levels.WARN)
-  vim.notify(url, vim.log.levels.WARN)
+  vim.notify("path"..path, vim.log.levels.WARN)
+  vim.notify("url"..url, vim.log.levels.WARN)
   local download_command = "curl -L -o " .. path .. ".gz " .. url
   local unzip_command = "gunzip -c " .. path .. ".gz > " .. path
   local chmod_command = "chmod +x " .. path
