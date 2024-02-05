@@ -16,6 +16,7 @@ local function create_cmds()
 end
 
 function M.setup(opts)
+  vim.notify("doing setup", vim.log.levels.WARN)
   if M.setup_done then
     return
   end
