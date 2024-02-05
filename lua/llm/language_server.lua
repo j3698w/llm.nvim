@@ -143,9 +143,11 @@ function M.get_completions(callback)
   params.tls_skip_verify_insecure = config.get().tls_skip_verify_insecure
   params.ide = "neovim"
 
+  vim.notify("get client", vim.log.levels.WARN)
   local client = lsp.get_client_by_id(M.client_id)
   if client ~= nil then
     local status, request_id = client.request("llm-ls/getCompletions", params, callback, 0)
+    vim.notify(status .. " status", vim.log.levels.WARN)
 
     if not status then
       vim.notify("[LLM] request 'llm-ls/getCompletions' failed", vim.log.levels.WARN)
