@@ -156,6 +156,7 @@ function M.get_completions(callback)
 
     return request_id
   else
+    vim.notify("returned nil", vim.log.levels.WARN)
     return nil
   end
 end
