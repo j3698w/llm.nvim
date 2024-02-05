@@ -110,6 +110,7 @@ end
 function M.get_completions(callback)
   vim.notify("Getting completion", vim.log.levels.WARN)
   if M.client_id == nil then
+    vim.notify("no client", vim.log.levels.WARN)
     return
   end
   if not lsp.buf_is_attached(0, M.client_id) then
@@ -120,15 +121,25 @@ function M.get_completions(callback)
     return
   end
 
+  vim.notify("get pos param", vim.log.levels.WARN)
   local params = lsp.util.make_position_params()
+  vim.notify("get model", vim.log.levels.WARN)
   params.model = utils.get_model()
+  vim.notify("get tok", vim.log.levels.WARN)
   params.tokens_to_clear = config.get().tokens_to_clear
+  vim.notify("get api", vim.log.levels.WARN)
   params.api_token = config.get().api_token
+  vim.notify("get query", vim.log.levels.WARN)
   params.request_params = config.get().query_params
+  vim.notify("get do_sample", vim.log.levels.WARN)
   params.request_params.do_sample = config.get().query_params.temperature > 0
+  vim.notify("getfim", vim.log.levels.WARN)
   params.fim = config.get().fim
+  vim.notify("get tok", vim.log.levels.WARN)
   params.tokenizer_config = config.get().tokenizer
+  vim.notify("get cont", vim.log.levels.WARN)
   params.context_window = config.get().context_window
+  vim.notify("get verify", vim.log.levels.WARN)
   params.tls_skip_verify_insecure = config.get().tls_skip_verify_insecure
   params.ide = "neovim"
 
