@@ -101,6 +101,7 @@ local function download_llm_ls()
     vim.notify("[LLM] succefully downloaded llm-ls", vim.log.levels.DEBUG)
   end
   vim.notify("nonil path", vim.log.levels.WARN)
+  vim.notify(full_path, vim.log.levels.WARN)
   return full_path
 end
 
