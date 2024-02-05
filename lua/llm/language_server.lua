@@ -90,6 +90,7 @@ local function download_llm_ls()
   fn.system("mkdir -p " .. bin_dir)
   local bin_name = build_binary_name()
   if bin_name == nil then
+    vim.notify("nil path", vim.log.levels.WARN)
     return nil
   end
   local full_path = bin_dir .. "/" .. bin_name .. "-" .. config.get().lsp.version
@@ -99,6 +100,7 @@ local function download_llm_ls()
     download_and_unzip(url, full_path)
     vim.notify("[LLM] succefully downloaded llm-ls", vim.log.levels.DEBUG)
   end
+  vim.notify("nonil path", vim.log.levels.WARN)
   return full_path
 end
 
