@@ -193,6 +193,7 @@ end
 
 function M.setup()
   if M.setup_done then
+    vim.notify("setup done", vim.log.levels.WARN)
     return
   end
 
@@ -202,17 +203,20 @@ function M.setup()
     return
   end
 
+  vim.notify("starting lsp", vim.log.levels.WARN)
   local client_id = lsp.start({
     name = "llm-ls",
     cmd = { llm_ls_path },
     root_dir = vim.fs.dirname(vim.fs.find({ ".git" }, { upward = true })[1]),
   })
 
+  vim.notify("checking err", vim.log.levels.WARN)
   if client_id == nil then
     vim.notify("[LLM] Error starting llm-ls", vim.log.levels.ERROR)
   else
     local augroup = "llm.language_server"
 
+    vim.notify("creating augroup", vim.log.levels.WARN)
     api.nvim_create_augroup(augroup, { clear = true })
 
     api.nvim_create_autocmd("BufEnter", {
@@ -226,6 +230,7 @@ function M.setup()
     M.client_id = client_id
   end
 
+  vim.notify("done setup", vim.log.levels.WARN)
   M.setup_done = true
 end
 
