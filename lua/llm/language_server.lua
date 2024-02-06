@@ -82,7 +82,7 @@ end
 local function download_llm_ls()
   vim.notify("downloading llm ls", vim.log.levels.WARN)
   local bin_path = config.get().lsp.bin_path
-  vim.notify(config.get().lsp, vim.log.levels.WARN)
+  vim.notify(type(config.get().lsp), vim.log.levels.WARN)
   if bin_path ~= nil and fn.filereadable(bin_path) == 1 then
     vim.notify("reting", vim.log.levels.WARN)
     return bin_path
