@@ -143,9 +143,9 @@ function M.get_completions(callback)
   vim.notify("get api", vim.log.levels.WARN)
   params.api_token = config.get().api_token
   vim.notify("get query", vim.log.levels.WARN)
-  params.request_params = config.get().query_params
+  params.requestParams = config.get().query_params
   vim.notify("get do_sample", vim.log.levels.WARN)
-  params.request_params.do_sample = config.get().query_params.temperature > 0
+  params.requestParams.do_sample = config.get().query_params.temperature > 0
   vim.notify("getfim", vim.log.levels.WARN)
   params.fim = config.get().fim
   vim.notify("get tok", vim.log.levels.WARN)
