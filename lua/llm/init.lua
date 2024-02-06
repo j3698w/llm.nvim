@@ -16,18 +16,18 @@ local function create_cmds()
 end
 
 function M.setup(opts)
-  vim.notify("doing setup", vim.log.levels.WARN)
+  --vim.notify("doing setup", vim.log.levels.WARN)
   if M.setup_done then
     return
   end
 
-  vim.notify("create cmds", vim.log.levels.WARN)
+  --vim.notify("create cmds", vim.log.levels.WARN)
   create_cmds()
 
-  vim.notify("setup config", vim.log.levels.WARN)
+  --vim.notify("setup config", vim.log.levels.WARN)
   config.setup(opts)
 
-  vim.notify("setup llmls", vim.log.levels.WARN)
+  --vim.notify("setup llmls", vim.log.levels.WARN)
   llm_ls.setup()
 
   completion.setup(config.get().enable_suggestions_on_startup)

@@ -62,9 +62,9 @@ local function build_url(bin_name)
 end
 
 local function download_and_unzip(url, path)
-  vim.notify("downloading and unzipping", vim.log.levels.WARN)
-  vim.notify("path"..path, vim.log.levels.WARN)
-  vim.notify("url"..url, vim.log.levels.WARN)
+  --vim.notify("downloading and unzipping", vim.log.levels.WARN)
+  --vim.notify("path"..path, vim.log.levels.WARN)
+  --vim.notify("url"..url, vim.log.levels.WARN)
   local download_command = "curl -L -o " .. path .. ".gz " .. url
   local unzip_command = "gunzip -c " .. path .. ".gz > " .. path
   local chmod_command = "chmod +x " .. path
@@ -80,18 +80,18 @@ local function download_and_unzip(url, path)
 end
 
 local function download_llm_ls()
-  vim.notify("downloading llm ls", vim.log.levels.WARN)
+  --vim.notify("downloading llm ls", vim.log.levels.WARN)
   local bin_path = config.get().lsp.bin_path
   -- vim.notify(config.get().lsp.tostring(), vim.log.levels.WARN)
   if bin_path ~= nil and fn.filereadable(bin_path) == 1 then
-    vim.notify("reting", vim.log.levels.WARN)
+    --vim.notify("reting", vim.log.levels.WARN)
     return bin_path
   end
   local bin_dir = vim.api.nvim_call_function("stdpath", { "data" }) .. "/llm_nvim/bin"
   fn.system("mkdir -p " .. bin_dir)
   local bin_name = build_binary_name()
   if bin_name == nil then
-    vim.notify("nil path", vim.log.levels.WARN)
+    --vim.notify("nil path", vim.log.levels.WARN)
     return nil
   end
   local full_path = bin_dir .. "/" .. bin_name .. "-" .. config.get().lsp.version
@@ -101,18 +101,18 @@ local function download_llm_ls()
     download_and_unzip(url, full_path)
     vim.notify("[LLM] succefully downloaded llm-ls", vim.log.levels.DEBUG)
   end
-  vim.notify("nonil path", vim.log.levels.WARN)
+  --vim.notify("nonil path", vim.log.levels.WARN)
   vim.notify(full_path, vim.log.levels.WARN)
   return full_path
 end
 
 function M.cancel_request(request_id)
-  vim.notify("canceling request", vim.log.levels.WARN)
+  --vim.notify("canceling request", vim.log.levels.WARN)
   lsp.get_client_by_id(M.client_id).cancel_request(request_id)
 end
 
 function M.extract_generation(response)
-  vim.notify("extracting generation", vim.log.levels.WARN)
+  --vim.notify("extracting generation", vim.log.levels.WARN)
   if #response == 0 then
     return ""
   end
@@ -121,7 +121,7 @@ function M.extract_generation(response)
 end
 
 function M.get_completions(callback)
-  vim.notify("Getting completion", vim.log.levels.WARN)
+  --vim.notify("Getting completion", vim.log.levels.WARN)
   if M.client_id == nil then
     vim.notify("no client", vim.log.levels.WARN)
     return
@@ -134,44 +134,44 @@ function M.get_completions(callback)
     return
   end
 
-  vim.notify("get pos param", vim.log.levels.WARN)
+  --vim.notify("get pos param", vim.log.levels.WARN)
   local params = lsp.util.make_position_params()
-  vim.notify("get model", vim.log.levels.WARN)
+  --vim.notify("get model", vim.log.levels.WARN)
   params.model = utils.get_model()
-  vim.notify("get tok", vim.log.levels.WARN)
+  --vim.notify("get tok", vim.log.levels.WARN)
   params.tokensToClear = config.get().tokens_to_clear
-  vim.notify("get api", vim.log.levels.WARN)
+  --vim.notify("get api", vim.log.levels.WARN)
   params.api_token = config.get().api_token
-  vim.notify("get query", vim.log.levels.WARN)
+  --vim.notify("get query", vim.log.levels.WARN)
   params.requestParams = config.get().query_params
-  vim.notify("get do_sample", vim.log.levels.WARN)
+  --vim.notify("get do_sample", vim.log.levels.WARN)
   params.requestParams.do_sample = config.get().query_params.temperature > 0
-  vim.notify("getfim", vim.log.levels.WARN)
+  --vim.notify("getfim", vim.log.levels.WARN)
   params.fim = config.get().fim
-  vim.notify("get tok", vim.log.levels.WARN)
+  --vim.notify("get tok", vim.log.levels.WARN)
   params.tokenizer_config = config.get().tokenizer
-  vim.notify("get cont", vim.log.levels.WARN)
+  --vim.notify("get cont", vim.log.levels.WARN)
   params.contextWindow = config.get().context_window
-  vim.notify("get verify", vim.log.levels.WARN)
+  --vim.notify("get verify", vim.log.levels.WARN)
   params.tlsSkipVerifyInsecure = config.get().tls_skip_verify_insecure
   params.ide = "neovim"
 
-  vim.notify("get client", vim.log.levels.WARN)
+  --vim.notify("get client", vim.log.levels.WARN)
   local client = lsp.get_client_by_id(M.client_id)
   if client ~= nil then
-    vim.notify("doing request", vim.log.levels.WARN)
+    --vim.notify("doing request", vim.log.levels.WARN)
     local status, request_id = client.request("llm-ls/getCompletions", params, callback, 0)
-    vim.notify("did request", vim.log.levels.WARN)
-    vim.notify("status: "..tostring(status), vim.log.levels.WARN)
+    --vim.notify("did request", vim.log.levels.WARN)
+    --vim.notify("status: "..tostring(status), vim.log.levels.WARN)
 
     if not status then
       vim.notify("[LLM] request 'llm-ls/getCompletions' failed", vim.log.levels.WARN)
     end
 
-    vim.notify("success: "..tostring(request_id), vim.log.levels.WARN)
+    --vim.notify("success: "..tostring(request_id), vim.log.levels.WARN)
     return request_id
   else
-    vim.notify("returned nil", vim.log.levels.WARN)
+    --vim.notify("returned nil", vim.log.levels.WARN)
     return nil
   end
 end
@@ -194,7 +194,7 @@ function M.accept_completion(completion_result)
 end
 
 function M.reject_completion(completion_result)
-  vim.notify("rejecting completion", vim.log.levels.WARN)
+  --vim.notify("rejecting completion", vim.log.levels.WARN)
   local params = {}
   params.request_id = completion_result.request_id
   params.shown_completions = { 0 }
