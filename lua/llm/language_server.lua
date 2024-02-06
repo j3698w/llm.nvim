@@ -153,7 +153,7 @@ function M.get_completions(callback)
   vim.notify("get cont", vim.log.levels.WARN)
   params.contextWindow = config.get().context_window
   vim.notify("get verify", vim.log.levels.WARN)
-  params.tls_skip_verify_insecure = config.get().tls_skip_verify_insecure
+  params.tlsSkipVerifyInsecure = config.get().tls_skip_verify_insecure
   params.ide = "neovim"
 
   vim.notify("get client", vim.log.levels.WARN)
