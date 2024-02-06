@@ -71,6 +71,7 @@ function M.lsp_suggest()
   M.request_id = llm_ls.get_completions(function(err, result, context, config)
     if err ~= nil then
       vim.notify("[LLM] " .. err.message, vim.log.levels.ERROR)
+      vim.notify("[LLM] " .. tostring(err), vim.log.levels.WARN)
       return
     end
     local completions = result.completions
