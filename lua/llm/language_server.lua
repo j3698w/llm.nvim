@@ -139,7 +139,7 @@ function M.get_completions(callback)
   vim.notify("get model", vim.log.levels.WARN)
   params.model = utils.get_model()
   vim.notify("get tok", vim.log.levels.WARN)
-  params.tokens_to_clear = config.get().tokens_to_clear
+  params.tokensToClear = config.get().tokens_to_clear
   vim.notify("get api", vim.log.levels.WARN)
   params.api_token = config.get().api_token
   vim.notify("get query", vim.log.levels.WARN)
