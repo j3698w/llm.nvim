@@ -151,7 +151,7 @@ function M.get_completions(callback)
   vim.notify("get tok", vim.log.levels.WARN)
   params.tokenizer_config = config.get().tokenizer
   vim.notify("get cont", vim.log.levels.WARN)
-  params.contextWindow = config.get().contextWindow
+  params.contextWindow = config.get().context_window
   vim.notify("get verify", vim.log.levels.WARN)
   params.tls_skip_verify_insecure = config.get().tls_skip_verify_insecure
   params.ide = "neovim"
