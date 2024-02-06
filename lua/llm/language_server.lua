@@ -177,7 +177,7 @@ function M.get_completions(callback)
 end
 
 function M.accept_completion(completion_result)
-  vim.notify("accepting completion", vim.log.levels.WARN)
+  --vim.notify("accepting completion", vim.log.levels.WARN)
   local params = {}
   params.request_id = completion_result.request_id
   params.accepted_completion = 0
