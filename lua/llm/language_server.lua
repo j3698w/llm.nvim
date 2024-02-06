@@ -168,6 +168,7 @@ function M.get_completions(callback)
       vim.notify("[LLM] request 'llm-ls/getCompletions' failed", vim.log.levels.WARN)
     end
 
+    vim.notify("success: "..tostring(request_id), vim.log.levels.WARN)
     return request_id
   else
     vim.notify("returned nil", vim.log.levels.WARN)
