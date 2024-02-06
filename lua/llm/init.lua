@@ -21,10 +21,13 @@ function M.setup(opts)
     return
   end
 
+  vim.notify("create cmds", vim.log.levels.WARN)
   create_cmds()
 
+  vim.notify("setup config", vim.log.levels.WARN)
   config.setup(opts)
 
+  vim.notify("setup llmls", vim.log.levels.WARN)
   llm_ls.setup()
 
   completion.setup(config.get().enable_suggestions_on_startup)
